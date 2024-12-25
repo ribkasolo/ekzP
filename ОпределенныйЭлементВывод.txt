@@ -1,0 +1,3 @@
+ DataGrid.ItemsSource = Context.GetContext().заказы
+                                         .Where(z => z.код_товара == 17)
+                                         .ToList();
