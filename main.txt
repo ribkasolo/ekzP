@@ -1,0 +1,76 @@
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace bilet9
+{
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+            LoadTelefony();
+        }
+
+        private void LoadTelefony()
+        {
+            DataGrid.ItemsSource = Context.GetContext()./*телефоны*/.ToList();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var addWindow = new Add(null);
+            if (addWindow.ShowDialog() == true) // Проверяем результат диалога
+            {
+                LoadTelefony(); // Обновляем DataGrid после добавления
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var number = DataGrid.SelectedItems.Cast/*<телефоны>*/().ToList();
+            if (MessageBox.Show($"Вы точно хотите удалить следующие {number.Count()} элементов?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                // удаляем выбранные эдллементы
+                Context.GetContext().телефоны.RemoveRange(number);
+                // сохраняем изменения в базе данных
+                Context.GetContext().SaveChanges();
+                MessageBox.Show("Данные удалены!");
+                // обновляем в DataGrid данные после удаления
+                DataGrid.ItemsSource = Context.GetContext()./*телефоны*/.ToList();
+            }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = DataGrid.SelectedItem as /*телефоны*/;
+            if (selectedItem == null)
+            {
+                MessageBox.Show("Выберите строку для изменения.", "Внимание");
+                return;
+            }
+
+            var changeWindow = new Change(selectedItem);
+            if (changeWindow.ShowDialog() == true) // Проверяем результат диалога
+            {
+                LoadTelefony(); // Обновляем DataGrid после изменения
+            }
+        }
+
+    }
+}

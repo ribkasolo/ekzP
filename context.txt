@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace bilet9
+{
+    class Context : DbContext
+    {
+        private static БорейEntities1 _context;
+
+        public Context() : base("EtoBaza")
+        { }
+
+        public static БорейEntities1 GetContext()
+        {
+
+            if (_context == null)
+                _context = new БорейEntities1();
+            return _context;
+
+
+        }
+    }
+}

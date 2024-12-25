@@ -1,0 +1,24 @@
+<Window x:Class="bilet9.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:bilet9"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+
+        <DataGrid x:Name="DataGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="10,73,10,10" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя сотрундника" <!--Binding="{Binding сотрудники.Имя}"--> Width="190"/>
+                <DataGridTextColumn Header="Фамилия сотрудника" <!--Binding="{Binding сотрудники.фамилия}"--> Width="*"/>
+                <DataGridTextColumn Header="Телефон" <!--Binding="{Binding телефон}"--> Width="*"/>
+                <DataGridTextColumn Header="Тип" <!--Binding="{Binding тип_тел.тип}"--> Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Добавить" Click="Button_Click" Margin="51,13,658,376"/>
+        <Button Content="Удалить" Click="Button_Click_1" Margin="619,13,82,376"/>
+        <Button Content="Изменить" Click="Button_Click_2" Margin="342,13,361,376"/>
+    </Grid>
+
+</Window>

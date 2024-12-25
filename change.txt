@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+
+namespace bilet9
+{
+    /// <summary>
+    /// Логика взаимодействия для Change.xaml
+    /// </summary>
+    public partial class Change : Window
+    {
+        private/* телефоны _телефон;*/
+        private BindingList/*<тип_тел> _типы; */ // BindingList для обновления combobox
+        private BindingList/*<сотрудники> _сотрудники;*/  // BindingList для обновления combobox
+
+        public Change(/*телефоны телефон*/)
+        {
+            InitializeComponent();
+            //_телефон = телефон;
+
+           /* _типы*/ = new BindingList/*<тип_тел>*/(Context.GetContext()./*тип_тел*/.ToList()); // Используем BindingList
+           /* _сотрудники*/ = new BindingList/*<сотрудники>*/(Context.GetContext()./*сотрудники*/.ToList()); // Используем BindingList
+
+            type.ItemsSource = /*_типы;*/
+            sotr.ItemsSource = /*_сотрудники;*/
+
+            DataContext = /*_телефон; */// Связываем данные с окном
+
+            // Устанавливаем выбранные элементы в ComboBox
+            if (/*_телефон*/ != null)
+            {
+                type.SelectedItem = /*_типы*/.FirstOrDefault(t => t./*Код_типа == _телефон.тип*/); //Предполагаем наличие поля id в тип_тел
+                sotr.SelectedItem = /*_сотрудники*/.FirstOrDefault(s => s./*Код_сотрудника == _телефон.сотрудник*/); //Предполагаем наличие поля id в сотрудники
+            }
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (/*_телефон*/ != null)
+            {
+                // Обновляем данные в объекте _телефон, используя DataContext
+                Context.GetContext().SaveChanges();
+                DialogResult = true;
+            }
+            this.Close();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+    }
+}
